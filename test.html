@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+ 
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <button onclick="calculate()">calculate</button>
+ 
+    <script type="text/javascript">
+	
+        window.onload = function () {
+		if (!("Notification" in window)) {
+            alert("데스크톱 알림을 지원하지 않는 브라우저입니다.");
+        }
+            if (window.Notification) {
+                Notification.requestPermission();
+            }
+        }
+ 
+        function calculate() {
+            setTimeout(function () {
+                notify();
+            }, 2000);
+        }
+ 
+        function notify() {
+            if (Notification.permission !== 'granted') {
+                alert('notification is disabled');
+            }
+            else {
+                var notification = new Notification('아이가 위급해요 빨리 확인해주세요!', {
+                    icon: './testimg.jpg',
+                    body: '뒤지기 싫으면 확인하세요',
+                });
+ 
+                notification.onclick = function () {
+                    window.open('http://127.0.0.1:5000');
+                };
+            }
+        }
+		
+		calculate();
+    </script>
+</body>
+</html>
